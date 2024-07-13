@@ -1,0 +1,56 @@
+{
+	"name": "real-alto-backend",
+	"version": "1.0.0",
+	"description": "Backend service for Real Alto project that provides APIs for the frontend",
+	"bin": "bin/www",
+	"main": "server.js",
+	"repository": "https://github.com/AIToala/real-alto-backend",
+	"author": "Comunitarias 2024-1",
+	"license": "ISC",
+	"engines": {
+		"node": ">=18.17.0"
+	},
+	"scripts": {
+		"test": "jest",
+		"testdev": "jest --watch",
+		"start": "node server.js",
+		"dev": "NODE_ENV=development nodemon server.js",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"prettier": "prettier --check **/*.js",
+		"prettier:fix": "prettier --write **/*.js"
+	},
+	"keywords": [
+		"node",
+		"express",
+		"rest",
+		"api",
+		"mysql"
+	],
+	"jest": {
+		"automock": true,
+		"moduleDirectories": [
+			"node_modules",
+			"src"
+		]
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"http-errors": "^2.0.0",
+		"jest": "^29.7.0",
+		"morgan": "^1.10.0",
+		"mysql2": "^3.10.2",
+		"sequelize": "^6.37.3",
+		"winston": "^3.13.1"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.7.0",
+		"eslint": "^9.7.0",
+		"eslint-config-prettier": "^9.1.0",
+		"globals": "^15.8.0",
+		"nodemon": "^3.1.4",
+		"prettier": "^3.3.3"
+	}
+}
