@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const piezas = sequelize.define(
 		'piezas',
 		{
 			id_pieza: {
@@ -134,4 +134,31 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	piezas.associate = function (models) {
+		piezas.hasOne(models.procedencias, {
+			foreignKey: 'id_procedencia',
+			as: 'procedencia',
+		});
+		piezas.hasOne(models.pieza_usos, {
+			foreignKey: 'id_pieza_uso',
+			as: 'pieza_uso',
+		});
+		piezas.hasOne(models.tipo_piezas, {
+			foreignKey: 'id_tipo_pieza',
+			as: 'tipo_pieza',
+		});
+		piezas.hasOne(models.modelos, {
+			foreignKey: 'id_modelo',
+			as: 'modelo',
+		});
+		piezas.hasOne(models.pieza_dimensiones, {
+			foreignKey: 'id_pieza_dimension',
+			as: 'pieza_dimension',
+		});
+		piezas.hasOne(models.exhibicion_piezas, {
+			foreignKey: 'id_exhibicion_pieza',
+			as: 'exhibicion_pieza',
+		});
+	};
+	return piezas;
 };

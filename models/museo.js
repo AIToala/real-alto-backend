@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const museos = sequelize.define(
 		'museos',
 		{
 			id_museo: {
@@ -49,4 +49,11 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	museos.associate = function (models) {
+		museos.hasOne(models.museo_contactos, {
+			foreignKey: 'id_museo_contacto',
+			as: 'museo_contactos',
+		});
+	};
+	return museos;
 };

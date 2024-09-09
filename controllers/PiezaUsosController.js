@@ -1,11 +1,28 @@
 const { Sequelize, Op } = require('sequelize');
 const Pieza_Usos = require('../models').pieza_usos;
+const Tipo_Usos = require('../models').tipo_usos;
 module.exports = {
 	async create(req, res) {
+		const { usoData, id_pieza } = req.body;
+		if (!usoData || usoData.length === 0 || !id_pieza) {
+			return res.status(400).json({ error: 'Uso data is required' });
+		}
+		const transaction = await Sequelize.transaction(); // Start a new transaction
 		try {
-			const piezaUso = await Pieza_Usos.create(req.body);
-			return res.status(201).json(piezaUso);
+			usoData.forEach(async (uso) => {
+				const tipoUsos = await Tipo_Usos.create(uso, { transaction });
+				await Pieza_Usos.create(
+					{
+						id_pieza: id_pieza,
+						id_pieza_uso: tipoUsos.id_tipo_uso,
+					},
+					{ transaction }
+				);
+			});
+			await transaction.commit(); // Commit the transaction
+			return res.status(201).json({ message: 'Pieza Uso created' });
 		} catch (error) {
+			await transaction.rollback(); // Rollback the transaction
 			return res.status(400).json({ error: error.message });
 		}
 	},

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const pieza_usos = sequelize.define(
 		'pieza_usos',
 		{
 			id_pieza_uso: {
@@ -62,4 +62,15 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	pieza_usos.associate = function (models) {
+		pieza_usos.hasMany(models.tipo_usos, {
+			foreignKey: 'id_tipo_uso',
+			as: 'tipo_uso',
+		});
+		pieza_usos.belongsTo(models.piezas, {
+			foreignKey: 'id_pieza',
+			as: 'pieza',
+		});
+	};
+	return pieza_usos;
 };

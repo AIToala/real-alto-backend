@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const pieza_dimensiones = sequelize.define(
 		'pieza_dimensiones',
 		{
 			id_pieza_dimension: {
@@ -62,4 +62,15 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	pieza_dimensiones.associate = function (models) {
+		pieza_dimensiones.belongsTo(models.piezas, {
+			foreignKey: 'id_pieza',
+			as: 'piezas',
+		});
+		pieza_dimensiones.hasMany(models.dimensiones, {
+			foreignKey: 'id_dimension',
+			as: 'dimensiones',
+		});
+	};
+	return pieza_dimensiones;
 };

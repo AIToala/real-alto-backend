@@ -26,7 +26,6 @@ router.get('/', (req, res) => {
 	});
 });
 // Routes for Piezas
-router.get('/piezas/status', PiezasController.working);
 router.post('/piezas', PiezasController.create);
 router.get('/piezas', PiezasController.findAll);
 router.get('/piezas/:id', PiezasController.findOne);

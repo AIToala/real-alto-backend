@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const modelos = sequelize.define(
 		'modelos',
 		{
 			id_modelo: {
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Modelo_Metadata',
+					model: 'modelo_metadata',
 					key: 'id_modelo_metadata',
 				},
 			},
@@ -51,4 +51,15 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	modelos.associate = function (models) {
+		modelos.hasOne(models.modelo_metadata, {
+			foreignKey: 'id_modelo_metadata',
+			as: 'modelo_metadata',
+		});
+		modelos.belongsTo(models.piezas, {
+			foreignKey: 'id_modelo',
+			as: 'pieza',
+		});
+	};
+	return modelos;
 };
