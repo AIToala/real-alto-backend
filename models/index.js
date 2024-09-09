@@ -3,7 +3,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const logger = require('winston'); // Ensure winston is installed and configured
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
@@ -17,12 +16,10 @@ let sequelize;
 if (config.use_env_variable) {
 	sequelize = new Sequelize(process.env[config.use_env_variable], {
 		...config,
-		logging: (msg) => logger.debug(msg), // Custom logging using winston
 	});
 } else {
 	sequelize = new Sequelize(config.database, config.username, config.password, {
 		...config,
-		logging: (msg) => logger.debug(msg), // Custom logging using winston
 	});
 }
 

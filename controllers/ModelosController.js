@@ -1,7 +1,9 @@
 const { Sequelize, Op } = require('sequelize');
-const upload = require('../config/multer'); // Import the multer configuration
+const { upload, handleUpload } = require('../config/multer'); // Import the multer configuration
+
 const Modelos = require('../models').modelos;
 const Modelo_Metadata = require('../models').modelo_metadata;
+const { Buffer } = require('buffer');
 
 module.exports = {
 	async create(req, res) {
@@ -18,8 +20,12 @@ module.exports = {
 				if (!req.file) {
 					return res.status(400).json({ error: 'Image is required' });
 				}
-				const imageUrl = req.file.path;
-				const publicId = req.file.filename;
+				const b64 = Buffer.from(req.file.buffer).toString('base64');
+				let dataUri = 'data:' + req.file.mimetype + ';base64,' + b64;
+				const cldres = await handleUpload(dataUri);
+				console.log(cldres);
+				const imageUrl = cldres.path;
+				const publicId = cldres.filename;
 				const createdMetadata = await Modelo_Metadata.create(metadata, { transaction });
 
 				const createdModelo = await Modelos.create(
