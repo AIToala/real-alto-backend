@@ -1,19 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class Exhibicion extends Model {
-		/**
-		 * Helper method for defining associations.
-		 * This method is not a part of Sequelize lifecycle.
-		 * The `models/index` file will call this method automatically.
-		 */
-		static associate(models) {
-			Exhibicion.belongsTo(models.Exhibicion_Pieza, {
-				foreignKey: 'id_exhibicion',
-			});
-		}
-	}
-	Exhibicion.init(
+	return sequelize.define(
+		'exhibiciones',
 		{
 			id_exhibicion: {
 				type: DataTypes.INTEGER,
@@ -26,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'Exhibicion',
+			tableName: 'Exhibiciones',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -41,5 +29,4 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
-	return Exhibicion;
 };

@@ -28,12 +28,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', routes);
+
 //Api Routes
 app.get('/', (req, res) => {
 	res.json({
 		message: 'Bienvenido a Real Alto - Proximamente documentacion API.',
 	});
 });
+
 app.get('/api/status', (req, res) => {
 	logger.info('Checking API status: Everything is OK');
 	res.status(200).send({

@@ -1,19 +1,8 @@
 'use strict';
-const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-	class Tipo_Uso extends Model {
-		/**
-		 * Helper method for defining associations.
-		 * This method is not a part of Sequelize lifecycle.
-		 * The `models/index` file will call this method automatically.
-		 */
-		static associate(models) {
-			Tipo_Uso.belongsTo(models.Pieza_Usos, {
-				foreignKey: 'id_tipo_uso',
-			});
-		}
-	}
-	Tipo_Uso.init(
+	return sequelize.define(
+		'tipo_usos',
 		{
 			id_tipo_uso: {
 				type: DataTypes.INTEGER,
@@ -26,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'Tipo_Uso',
+			tableName: 'Tipo_Usos',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -37,5 +26,4 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
-	return Tipo_Uso;
 };

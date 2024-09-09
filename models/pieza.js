@@ -1,34 +1,8 @@
 'use strict';
-const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-	class Pieza extends Model {
-		/**
-		 * Helper method for defining associations.
-		 * This method is not a part of Sequelize lifecycle.
-		 * The `models/index` file will call this method automatically.
-		 */
-		static associate(models) {
-			models.Pieza.hasOne(models.Procedencia, {
-				foreignKey: 'id_procedencia',
-			});
-			models.Pieza.hasOne(models.Tipo_Pieza, {
-				foreignKey: 'id_tipo_pieza',
-			});
-			models.Pieza.hasOne(models.Modelo, {
-				foreignKey: 'id_modelo',
-			});
-			models.Pieza.hasMany(models.Pieza_Dimension, {
-				foreignKey: 'id_pieza_dimension',
-			});
-			models.Pieza.hasMany(models.Pieza_Usos, {
-				foreignKey: 'id_pieza_uso',
-			});
-			models.Pieza.hasMany(models.Exhibicion_Pieza, {
-				foreignKey: 'id_exhibicion_pieza',
-			});
-		}
-	}
-	Pieza.init(
+	return sequelize.define(
+		'piezas',
 		{
 			id_pieza: {
 				type: DataTypes.INTEGER,
@@ -40,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Procedencia',
+					model: 'Procedencias',
 					key: 'id_procedencia',
 				},
 			},
@@ -56,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Tipo_Pieza',
+					model: 'Tipo_Piezas',
 					key: 'id_tipo_pieza',
 				},
 			},
@@ -64,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Modelo',
+					model: 'Modelos',
 					key: 'id_modelo',
 				},
 			},
@@ -72,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Pieza_Dimension',
+					model: 'Pieza_Dimensiones',
 					key: 'id_pieza_dimension',
 				},
 			},
@@ -80,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: true,
 				references: {
-					model: 'Exhibicion_Pieza',
+					model: 'Exhibicion_Piezas',
 					key: 'id_exhibicion_pieza',
 				},
 			},
@@ -91,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'Pieza',
+			tableName: 'Piezas',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -160,5 +134,4 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
-	return Pieza;
 };

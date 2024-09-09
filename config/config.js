@@ -10,7 +10,6 @@ module.exports = {
 		database: process.env.DEV_DATABASE,
 		host: process.env.DEV_HOST,
 		dialect: process.env.DEV_ADAPTER,
-		port: process.env.PORT,
 	},
 	test: {
 		username: process.env.TEST_USERNAME,
@@ -18,7 +17,6 @@ module.exports = {
 		database: process.env.TEST_DATABASE,
 		host: process.env.TEST_HOST,
 		dialect: process.env.TEST_ADAPTER,
-		port: process.env.PORT,
 	},
 	production: {
 		username: process.env.DB_USERNAME,
@@ -26,6 +24,5 @@ module.exports = {
 		database: process.env.DB_DATABASE,
 		host: process.env.DB_HOST,
 		dialect: process.env.DB_ADAPTER,
-		port: process.env.PORT,
 	},
 };

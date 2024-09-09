@@ -1,22 +1,8 @@
 'use strict';
-const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-	class Pieza_Dimension extends Model {
-		/**
-		 * Helper method for defining associations.
-		 * This method is not a part of Sequelize lifecycle.
-		 * The `models/index` file will call this method automatically.
-		 */
-		static associate(models) {
-			models.Pieza_Dimension.belongsTo(models.Pieza, {
-				foreignKey: 'id_pieza',
-			});
-			models.Pieza_Dimension.hasOne(models.Dimension, {
-				foreignKey: 'id_dimension',
-			});
-		}
-	}
-	Pieza_Dimension.init(
+	return sequelize.define(
+		'pieza_dimensiones',
 		{
 			id_pieza_dimension: {
 				type: DataTypes.INTEGER,
@@ -28,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Pieza',
+					model: 'Piezas',
 					key: 'id_pieza',
 				},
 			},
@@ -36,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Dimension',
+					model: 'Dimensiones',
 					key: 'id_dimension',
 				},
 			},
 		},
 		{
 			sequelize,
-			modelName: 'Pieza_Dimension',
+			tableName: 'Pieza_Dimensiones',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -76,5 +62,4 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
-	return Pieza_Dimension;
 };
