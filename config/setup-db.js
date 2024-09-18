@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 const { Sequelize } = require('sequelize');
 const process = require('process');
+require('dotenv').config();
 const env = process.env.NODE_ENV || 'development';
+console.log('Environment', env);
 const config = require(__dirname + '/config.js')[env];
 
 // Connect to MySQL server using root/admin credentials
