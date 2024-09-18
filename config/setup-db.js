@@ -11,6 +11,7 @@ const config = require(__dirname + '/config.js')[env];
 const sequelize = new Sequelize('', config.username, config.password, {
 	host: config.host,
 	dialect: config.dialect || 'mysql',
+	port: 3306,
 	logging: false, // Disable logging for cleaner output
 });
 
