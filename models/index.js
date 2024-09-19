@@ -18,6 +18,17 @@ if (config.use_env_variable) {
 	sequelize = new Sequelize(process.env[config.use_env_variable], {
 		...config,
 		port: config.port || 3306,
+		pool: {
+			max: 10,
+			min: 0,
+			acquire: 30000,
+			idle: 10000,
+		},
+		dialectOptions: {
+			ssl: {
+				rejectUnauthorized: true,
+			},
+		},
 	});
 } else {
 	sequelize = new Sequelize(config.database, config.username, config.password, {
