@@ -17,12 +17,12 @@ let sequelize;
 if (config.use_env_variable) {
 	sequelize = new Sequelize(process.env[config.use_env_variable], {
 		...config,
-		port: 3306,
+		port: config.port || 3306,
 	});
 } else {
 	sequelize = new Sequelize(config.database, config.username, config.password, {
 		...config,
-		port: 3306,
+		port: config.port || 3306,
 	});
 }
 
