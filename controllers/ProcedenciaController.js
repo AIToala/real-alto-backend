@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const Procedencia = require('../models').procedencias;
 module.exports = {
 	async create(req, res) {

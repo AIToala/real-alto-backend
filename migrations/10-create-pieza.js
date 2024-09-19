@@ -15,7 +15,7 @@ module.exports = {
 			},
 			id_pieza_uso: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 			},
 			id_tipo_pieza: {
 				type: Sequelize.INTEGER,
@@ -23,11 +23,11 @@ module.exports = {
 			},
 			id_modelo: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 			},
 			id_pieza_dimension: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 			},
 			id_exhibicion_pieza: {
 				type: Sequelize.INTEGER,

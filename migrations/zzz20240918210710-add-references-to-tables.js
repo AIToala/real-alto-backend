@@ -11,6 +11,8 @@ module.exports = {
 				table: 'Modelo_Metadata',
 				field: 'id_modelo_metadata',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Piezas', {
 			fields: ['id_procedencia'],
@@ -20,6 +22,8 @@ module.exports = {
 				table: 'Procedencias',
 				field: 'id_procedencia',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Piezas', {
 			fields: ['id_pieza_uso'],
@@ -29,6 +33,8 @@ module.exports = {
 				table: 'Pieza_Usos',
 				field: 'id_pieza_uso',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Piezas', {
 			fields: ['id_tipo_pieza'],
@@ -38,6 +44,8 @@ module.exports = {
 				table: 'Tipo_Piezas',
 				field: 'id_tipo_pieza',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Piezas', {
 			fields: ['id_exhibicion_pieza'],
@@ -47,6 +55,8 @@ module.exports = {
 				table: 'Exhibicion_Piezas',
 				field: 'id_exhibicion_pieza',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Piezas', {
 			fields: ['id_pieza_dimension'],
@@ -56,6 +66,8 @@ module.exports = {
 				table: 'Pieza_Dimensiones',
 				field: 'id_pieza_dimension',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Piezas', {
 			fields: ['id_modelo'],
@@ -65,6 +77,8 @@ module.exports = {
 				table: 'Modelos',
 				field: 'id_modelo',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Museos', {
 			fields: ['id_museo_contacto'],
@@ -74,6 +88,8 @@ module.exports = {
 				table: 'Museo_Contactos',
 				field: 'id_museo_contacto',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Museo_Contactos', {
 			fields: ['id_museo'],
@@ -83,6 +99,8 @@ module.exports = {
 				table: 'Museos',
 				field: 'id_museo',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Museo_Contactos', {
 			fields: ['id_contacto'],
@@ -92,6 +110,8 @@ module.exports = {
 				table: 'Contactos',
 				field: 'id_contacto',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Exhibicion_Piezas', {
 			fields: ['id_exhibicion'],
@@ -101,6 +121,8 @@ module.exports = {
 				table: 'Exhibiciones',
 				field: 'id_exhibicion',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Exhibicion_Piezas', {
 			fields: ['id_pieza'],
@@ -110,6 +132,8 @@ module.exports = {
 				table: 'Piezas',
 				field: 'id_pieza',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Pieza_Dimensiones', {
 			fields: ['id_pieza'],
@@ -119,6 +143,8 @@ module.exports = {
 				table: 'Piezas',
 				field: 'id_pieza',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 		await queryInterface.addConstraint('Pieza_Dimensiones', {
 			fields: ['id_dimension'],
@@ -128,6 +154,8 @@ module.exports = {
 				table: 'Dimensiones',
 				field: 'id_dimension',
 			},
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
 		});
 	},
 

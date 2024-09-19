@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const Exhibicion_Piezas = require('../models').exhibicion_piezas;
 const Exhibiciones = require('../models').exhibiciones;
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
 		if (!exhibicionData || exhibicionData.length === 0 || !id_pieza) {
 			return res.status(400).json({ error: 'Exhibicion data and Pieza ID are required' });
 		}
-		const transaction = await Sequelize.transaction(); // Start a new transaction
+		const transaction = await sequelize.transaction(); // Start a new transaction
 		try {
 			exhibicionData.forEach(async (exhibicion) => {
 				const exhibiciones = await Exhibiciones.create(exhibicion, { transaction });

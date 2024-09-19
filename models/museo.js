@@ -53,6 +53,8 @@ module.exports = (sequelize, DataTypes) => {
 		museos.hasOne(models.museo_contactos, {
 			foreignKey: 'id_museo_contacto',
 			as: 'museo_contactos',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return museos;

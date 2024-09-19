@@ -66,10 +66,14 @@ module.exports = (sequelize, DataTypes) => {
 		pieza_usos.hasMany(models.tipo_usos, {
 			foreignKey: 'id_tipo_uso',
 			as: 'tipo_uso',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		pieza_usos.belongsTo(models.piezas, {
 			foreignKey: 'id_pieza',
 			as: 'pieza',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return pieza_usos;

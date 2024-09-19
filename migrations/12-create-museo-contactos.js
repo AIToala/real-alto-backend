@@ -15,7 +15,7 @@ module.exports = {
 			},
 			id_contacto: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 			},
 			createdAt: {
 				allowNull: false,

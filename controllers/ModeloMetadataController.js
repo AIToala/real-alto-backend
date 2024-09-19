@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const Modelos_Metadata = require('../models').modelo_metadata;
 module.exports = {
 	async create(req, res) {

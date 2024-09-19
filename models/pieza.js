@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			id_pieza_uso: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: {
 					model: 'Pieza_Usos',
 					key: 'id_pieza_usos',
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			id_modelo: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: {
 					model: 'Modelos',
 					key: 'id_modelo',
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			id_pieza_dimension: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: {
 					model: 'Pieza_Dimensiones',
 					key: 'id_pieza_dimension',
@@ -138,26 +138,38 @@ module.exports = (sequelize, DataTypes) => {
 		piezas.hasOne(models.procedencias, {
 			foreignKey: 'id_procedencia',
 			as: 'procedencia',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasOne(models.pieza_usos, {
 			foreignKey: 'id_pieza_uso',
 			as: 'pieza_uso',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasOne(models.tipo_piezas, {
 			foreignKey: 'id_tipo_pieza',
 			as: 'tipo_pieza',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasOne(models.modelos, {
 			foreignKey: 'id_modelo',
 			as: 'modelo',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasOne(models.pieza_dimensiones, {
 			foreignKey: 'id_pieza_dimension',
 			as: 'pieza_dimension',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasOne(models.exhibicion_piezas, {
 			foreignKey: 'id_exhibicion_pieza',
 			as: 'exhibicion_pieza',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return piezas;

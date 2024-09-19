@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const Pieza_Usos = require('../models').pieza_usos;
 const Tipo_Usos = require('../models').tipo_usos;
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
 		if (!usoData || usoData.length === 0 || !id_pieza) {
 			return res.status(400).json({ error: 'Uso data is required' });
 		}
-		const transaction = await Sequelize.transaction(); // Start a new transaction
+		const transaction = await sequelize.transaction(); // Start a new transaction
 		try {
 			usoData.forEach(async (uso) => {
 				const tipoUsos = await Tipo_Usos.create(uso, { transaction });

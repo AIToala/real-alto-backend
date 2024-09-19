@@ -11,7 +11,7 @@ module.exports = {
 			},
 			id_exhibicion: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 			},
 			id_pieza: {
 				type: Sequelize.INTEGER,

@@ -1,0 +1,56 @@
+{
+	"piezaData": [
+		{
+			"nombre_pieza": "Pieza 1",
+			"descripcion": "ASDFFF",
+			"descripcion_corta": "ASDFG",
+			"activo": 1
+		}
+	],
+	"piezaDimensionData": [
+		{
+			"valor_medida": 1,
+			"unidad_medida": "Metros"
+		},
+		{
+			"valor_medida": 2.5,
+			"unidad_medida": "Centimetros"
+		}
+	],
+	"piezaUsoData": [
+		{
+			"nombre_tipo_uso": "Uso 1",
+			"descripcion": "USO NUEVO"
+		},
+		{
+			"nombre_tipo_uso": "Uso 2",
+			"descripcion": "USO NUEVO"
+		}
+	],
+	"tipoPiezaData": [
+		{
+			"nombre_tipo_pieza": "Tipo 1",
+			"descripcion": "TIPO NUEVO"
+		}
+	],
+	"modeloData": null,
+	"procedenciaData": [
+		{
+			"periodo_inicio": "2019-01-01",
+			"periodo_fin": "2019-01-01",
+			"origen": "Origen 1",
+			"nivel_cronologico": "Nivel 1",
+			"descripcion": "DESCRIPCION"
+		}
+	],
+	"exhibicionPiezaData": [
+		{
+			"nombre_exhibicion": "Exhibicion 1",
+			"descripcion": "ASDFFF"
+		},
+		{
+			"nombre_exhibicion": "Exhibicion 2",
+			"descripcion": "ASDFFF2"
+		}
+	]
+}

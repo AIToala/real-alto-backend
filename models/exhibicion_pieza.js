@@ -66,10 +66,14 @@ module.exports = (sequelize, DataTypes) => {
 		exhibicion_piezas.hasOne(models.exhibiciones, {
 			foreignKey: 'id_exhibicion',
 			as: 'exhibicion',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		exhibicion_piezas.belongsTo(models.piezas, {
 			foreignKey: 'id_pieza',
 			as: 'pieza',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return exhibicion_piezas;

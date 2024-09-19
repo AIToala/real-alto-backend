@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const { upload, handleUpload } = require('../config/multer'); // Import the multer configuration
 
 const Modelos = require('../models').modelos;
@@ -11,7 +12,7 @@ module.exports = {
 		if (!modeloData || !metadata) {
 			return res.status(400).json({ error: 'Metadata is required' });
 		}
-		const transaction = await Sequelize.transaction(); // Start a new transaction
+		const transaction = await sequelize.transaction(); // Start a new transaction
 		try {
 			upload.single('image')(req, res, async (err) => {
 				if (err) {

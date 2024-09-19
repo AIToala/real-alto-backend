@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const Pieza_Dimensiones = require('../models').pieza_dimensiones;
 const Dimensiones = require('../models').dimensiones;
 module.exports = {
@@ -7,10 +8,17 @@ module.exports = {
 		if (!dimensionesData || dimensionesData.length === 0 || !id_pieza) {
 			return res.status(400).json({ error: 'Dimensiones data is required' });
 		}
-		const transaction = await Sequelize.transaction(); // Start a new transaction
+		const transaction = await sequelize.transaction(); // Start a new transaction
 		try {
 			dimensionesData.forEach(async (dimension) => {
-				const dimensiones = await Dimensiones.create(dimension, { transaction });
+				console.log(dimension);
+				const dimensiones = await Dimensiones.create(
+					{
+						valor_medida: dimension.valor_medida,
+						unidad_medida: dimension.unidad_medida,
+					},
+					{ transaction }
+				);
 				await Pieza_Dimensiones.create(
 					{
 						id_pieza: id_pieza,
@@ -23,6 +31,7 @@ module.exports = {
 			return res.status(201).json({ message: 'Pieza Dimension created' });
 		} catch (error) {
 			await transaction.rollback(); // Rollback the transaction
+			console.error(error);
 			return res.status(400).json({ error: error.message });
 		}
 	},

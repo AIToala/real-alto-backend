@@ -55,10 +55,14 @@ module.exports = (sequelize, DataTypes) => {
 		modelos.hasOne(models.modelo_metadata, {
 			foreignKey: 'id_modelo_metadata',
 			as: 'modelo_metadata',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		modelos.belongsTo(models.piezas, {
 			foreignKey: 'id_modelo',
 			as: 'pieza',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return modelos;

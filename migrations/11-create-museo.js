@@ -11,7 +11,7 @@ module.exports = {
 			},
 			id_museo_contacto: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 			},
 			nombre_museo: {
 				type: Sequelize.STRING,

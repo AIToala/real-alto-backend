@@ -1,4 +1,5 @@
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 const Museo_Contactos = require('../models').museo_contactos;
 module.exports = {
 	async create(req, res) {

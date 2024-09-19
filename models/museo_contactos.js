@@ -65,10 +65,14 @@ module.exports = (sequelize, DataTypes) => {
 		museo_contactos.belongsTo(models.museos, {
 			foreignKey: 'id_museo',
 			as: 'museo',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 		museo_contactos.hasMany(models.contactos, {
 			foreignKey: 'id_contacto',
 			as: 'contacto',
+			onUpdate: 'CASCADE', // Update behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return museo_contactos;
