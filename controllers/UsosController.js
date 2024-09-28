@@ -1,11 +1,11 @@
 const { Op } = require('sequelize');
 const { sequelize } = require('../models');
-const Procedencia = require('../models').procedencias;
+const Usos = require('../models').usos;
 module.exports = {
 	async create(req, res) {
 		try {
-			const procedencia = await Procedencia.create(req.body);
-			return res.status(201).json(procedencia);
+			const tipoUso = await Usos.create(req.body);
+			return res.status(201).json(tipoUso);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
 		}
@@ -15,19 +15,16 @@ module.exports = {
 		const filters = {};
 		try {
 			// Extract filters from `req.query`
-			if (req.query.id_procedencia && req.query.id_procedencia !== '')
-				filters.id_procedencia = req.query.id_procedencia;
+			if (req.query.id_uso && req.query.id_uso !== '') filters.id_uso = req.query.id_uso;
 			if (req.query.busqueda && req.query.busqueda !== '') filters.busqueda = req.query.busqueda;
 
 			// Dynamically build the `where` clause
 			const whereConditions = [];
-			if (filters.id_procedencia) whereConditions.push({ id_procedencia: { [Op.eq]: filters.id_procedencia } });
+			if (filters.id_uso) whereConditions.push({ id_uso: { [Op.eq]: filters.id_uso } });
 			if (filters.busqueda) {
 				whereConditions.push(
-					{ periodo_inicio: { [Op.like]: `%${filters.busqueda}%` } },
-					{ periodo_fin: { [Op.like]: `%${filters.busqueda}%` } },
-					{ descripcion: { [Op.like]: `%${filters.busqueda}%` } },
-					{ origen: { [Op.like]: `%${filters.busqueda}%` } }
+					{ nombre_uso: { [Op.like]: `%${filters.busqueda}%` } },
+					{ descripcion: { [Op.like]: `%${filters.busqueda}%` } }
 				);
 			}
 			const paginated = parseInt(req.query.paginated) === 1 ? true : false;
@@ -38,7 +35,7 @@ module.exports = {
 
 			if (paginated) {
 				if (whereConditions.length > 0) {
-					const { count, rows } = await Procedencia.findAndCountAll({
+					const { count, rows } = await Usos.findAndCountAll({
 						where: {
 							[Op.and]: [{ [Op.or]: whereConditions }],
 						},
@@ -49,7 +46,7 @@ module.exports = {
 						.status(200)
 						.json({ total: count, totalPages: Math.ceil(count / pageSize), currentPage: page, pageSize, data: rows });
 				} else {
-					const { count, rows } = await Procedencia.findAndCountAll({
+					const { count, rows } = await Usos.findAndCountAll({
 						limit,
 						offset,
 					});
@@ -63,14 +60,14 @@ module.exports = {
 				}
 			} else {
 				if (whereConditions.length > 0) {
-					const rows = await Procedencia.findAll({
+					const rows = await Usos.findAll({
 						where: {
 							[Op.and]: [{ [Op.or]: whereConditions }],
 						},
 					});
 					return res.status(200).json(rows);
 				} else {
-					const rows = await Procedencia.findAll();
+					const rows = await Usos.findAll();
 					return res.status(200).json(rows);
 				}
 			}
@@ -82,11 +79,11 @@ module.exports = {
 
 	async findOne(req, res) {
 		try {
-			const procedencia = await Procedencia.findByPk(parseInt(req.params.id));
-			if (!procedencia) {
-				return res.status(404).json({ error: 'Procedencia not found' });
+			const tipoUso = await Usos.findByPk(parseInt(req.params.id));
+			if (!tipoUso) {
+				return res.status(404).json({ error: 'Tipo Uso not found' });
 			}
-			return res.status(200).json(procedencia);
+			return res.status(200).json(tipoUso);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
 		}
@@ -94,14 +91,14 @@ module.exports = {
 
 	async update(req, res) {
 		try {
-			const [updated] = await Procedencia.update(req.body, {
-				where: { id_procedencia: parseInt(req.params.id) },
+			const [updated] = await Usos.update(req.body, {
+				where: { id_uso: parseInt(req.params.id) },
 			});
 			if (!updated) {
-				return res.status(404).json({ error: 'Procedencia not found' });
+				return res.status(404).json({ error: 'Tipo Uso not found' });
 			}
-			const updatedProcedencia = await Procedencia.findByPk(parseInt(req.params.id));
-			return res.status(200).json(updatedProcedencia);
+			const updatedTipoUso = await Usos.findByPk(parseInt(req.params.id));
+			return res.status(200).json(updatedTipoUso);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
 		}
@@ -109,11 +106,11 @@ module.exports = {
 
 	async delete(req, res) {
 		try {
-			const deleted = await Procedencia.destroy({
-				where: { id_procedencia: parseInt(req.params.id) },
+			const deleted = await Usos.destroy({
+				where: { id_uso: parseInt(req.params.id) },
 			});
 			if (!deleted) {
-				return res.status(404).json({ error: 'Procedencia not found' });
+				return res.status(404).json({ error: 'Tipo Uso not found' });
 			}
 			return res.status(204).send();
 		} catch (error) {

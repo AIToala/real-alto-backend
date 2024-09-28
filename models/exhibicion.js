@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const exhibiciones = sequelize.define(
 		'exhibiciones',
 		{
 			id_exhibicion: {
@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				autoIncrement: true,
 			},
-			nombre_exhibicion: DataTypes.STRING,
+			nombre_exhibicion: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				unique: true,
+			},
 			descripcion: DataTypes.TEXT,
 		},
 		{
@@ -29,4 +33,13 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	exhibiciones.associate = function (models) {
+		exhibiciones.hasMany(models.exhibicion_piezas, {
+			foreignKey: 'id_exhibicion',
+			as: 'exhibicion_piezas',
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE',
+		});
+	};
+	return exhibiciones;
 };

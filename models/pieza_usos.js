@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				autoIncrement: true,
 			},
-			id_tipo_uso: {
+			id_uso: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Tipo_Usos',
-					key: 'id_tipo_uso',
+					model: 'Usos',
+					key: 'id_uso',
 				},
 			},
 			id_pieza: {
@@ -37,16 +37,16 @@ module.exports = (sequelize, DataTypes) => {
 					using: 'BTREE',
 					fields: [
 						{
-							name: 'id_pieza_usos',
+							name: 'id_pieza_uso',
 						},
 					],
 				},
 				{
-					name: 'id_tipo_uso',
+					name: 'id_uso',
 					using: 'BTREE',
 					fields: [
 						{
-							name: 'id_tipo_uso',
+							name: 'id_uso',
 						},
 					],
 				},
@@ -63,9 +63,9 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 	pieza_usos.associate = function (models) {
-		pieza_usos.hasMany(models.tipo_usos, {
-			foreignKey: 'id_tipo_uso',
-			as: 'tipo_uso',
+		pieza_usos.belongsTo(models.usos, {
+			foreignKey: 'id_uso',
+			as: 'uso',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});

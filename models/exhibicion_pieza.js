@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
-		exhibicion_piezas.belongsTo(models.piezas, {
+		exhibicion_piezas.hasOne(models.piezas, {
 			foreignKey: 'id_pieza',
 			as: 'pieza',
 			onUpdate: 'CASCADE', // Update behavior

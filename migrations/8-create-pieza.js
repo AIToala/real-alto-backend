@@ -9,32 +9,10 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			id_procedencia: {
-				type: Sequelize.INTEGER,
-				allowNull: false,
-			},
-			id_pieza_uso: {
-				type: Sequelize.INTEGER,
-				allowNull: true,
-			},
-			id_tipo_pieza: {
-				type: Sequelize.INTEGER,
-				allowNull: false,
-			},
-			id_modelo: {
-				type: Sequelize.INTEGER,
-				allowNull: true,
-			},
-			id_pieza_dimension: {
-				type: Sequelize.INTEGER,
-				allowNull: true,
-			},
-			id_exhibicion_pieza: {
-				type: Sequelize.INTEGER,
-				allowNull: true,
-			},
 			nombre_pieza: {
 				type: Sequelize.STRING,
+				allowNull: false,
+				unique: true,
 			},
 			descripcion: {
 				type: Sequelize.TEXT,
@@ -44,6 +22,7 @@ module.exports = {
 			},
 			activo: {
 				type: Sequelize.BOOLEAN,
+				defaultValue: 1,
 			},
 			createdAt: {
 				allowNull: false,
@@ -55,7 +34,7 @@ module.exports = {
 			},
 		});
 	},
-	async down(queryInterface, Sequelize) {
+	async down(queryInterface) {
 		await queryInterface.dropTable('Piezas');
 	},
 };

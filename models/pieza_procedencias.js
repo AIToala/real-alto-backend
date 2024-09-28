@@ -1,34 +1,35 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-	const museo_contactos = sequelize.define(
-		'museo_contactos',
+	const pieza_procedencias = sequelize.define(
+		'pieza_procedencias',
 		{
-			id_museo_contacto: {
+			id_pieza_procedencia: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 				allowNull: false,
 				autoIncrement: true,
 			},
-			id_museo: {
+			id_procedencia: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Museos',
-					key: 'id_museo',
+					model: 'Procedencias',
+					key: 'id_procedencia',
 				},
 			},
-			id_contacto: {
+			id_pieza: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Contactos',
-					key: 'id_contacto',
+					model: 'Piezas',
+					key: 'id_pieza',
 				},
 			},
 		},
 		{
 			sequelize,
-			tableName: 'Museo_Contactos',
+			tableName: 'Pieza_Procedencias',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -36,44 +37,44 @@ module.exports = (sequelize, DataTypes) => {
 					using: 'BTREE',
 					fields: [
 						{
-							name: 'id_museo_contacto',
+							name: 'id_pieza_procedencia',
 						},
 					],
 				},
 				{
-					name: 'id_museo',
+					name: 'id_procedencia',
 					using: 'BTREE',
 					fields: [
 						{
-							name: 'id_museo',
+							name: 'id_procedencia',
 						},
 					],
 				},
 				{
-					name: 'id_contacto',
+					name: 'id_pieza',
 					using: 'BTREE',
 					fields: [
 						{
-							name: 'id_contacto',
+							name: 'id_pieza',
 						},
 					],
 				},
 			],
 		}
 	);
-	museo_contactos.associate = function (models) {
-		museo_contactos.belongsTo(models.museos, {
-			foreignKey: 'id_museo',
-			as: 'museo',
+	pieza_procedencias.associate = function (models) {
+		pieza_procedencias.belongsTo(models.procedencias, {
+			foreignKey: 'id_procedencia',
+			as: 'procedencia',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
-		museo_contactos.belongsTo(models.contactos, {
-			foreignKey: 'id_contacto',
-			as: 'contacto',
+		pieza_procedencias.belongsTo(models.piezas, {
+			foreignKey: 'id_pieza',
+			as: 'pieza',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
-	return museo_contactos;
+	return pieza_procedencias;
 };

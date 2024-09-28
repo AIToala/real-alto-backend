@@ -1,10 +1,10 @@
 const { Op } = require('sequelize');
 const { sequelize } = require('../models');
-const Modelos_Metadata = require('../models').modelo_metadata;
+const Modelos_Imagen = require('../models').modelo_imagen;
 module.exports = {
 	async create(req, res) {
 		try {
-			const modeloMetadata = await Modelos_Metadata.create(req.body);
+			const modeloMetadata = await Modelos_Imagen.create(req.body);
 			return res.status(201).json(modeloMetadata);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -13,7 +13,7 @@ module.exports = {
 
 	async findAll(req, res) {
 		try {
-			const modeloMetadata = await Modelos_Metadata.findAll();
+			const modeloMetadata = await Modelos_Imagen.findAll();
 			return res.status(200).json(modeloMetadata);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -22,7 +22,7 @@ module.exports = {
 
 	async findOne(req, res) {
 		try {
-			const modeloMetadata = await Modelos_Metadata.findByPk(req.params.id);
+			const modeloMetadata = await Modelos_Imagen.findByPk(parseInt(req.params.id));
 			if (!modeloMetadata) {
 				return res.status(404).json({ error: 'Modelo Metadata not found' });
 			}
@@ -34,13 +34,13 @@ module.exports = {
 
 	async update(req, res) {
 		try {
-			const [updated] = await Modelos_Metadata.update(req.body, {
-				where: { id: req.params.id },
+			const [updated] = await Modelos_Imagen.update(req.body, {
+				where: { id_modelo_imagen: parseInt(req.params.id) },
 			});
 			if (!updated) {
 				return res.status(404).json({ error: 'Modelo Metadata not found' });
 			}
-			const updatedModeloMetadata = await Modelos_Metadata.findByPk(req.params.id);
+			const updatedModeloMetadata = await Modelos_Imagen.findByPk(parseInt(req.params.id));
 			return res.status(200).json(updatedModeloMetadata);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -49,8 +49,8 @@ module.exports = {
 
 	async delete(req, res) {
 		try {
-			const deleted = await Modelos_Metadata.destroy({
-				where: { id: req.params.id },
+			const deleted = await Modelos_Imagen.destroy({
+				where: { id_modelo_imagen: parseInt(req.params.id) },
 			});
 			if (!deleted) {
 				return res.status(404).json({ error: 'Modelo Metadata not found' });

@@ -10,20 +10,22 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				autoIncrement: true,
 			},
-			id_modelo_metadata: {
+			id_modelo_imagen: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'modelo_metadata',
-					key: 'id_modelo_metadata',
+					model: 'modelo_imagen',
+					key: 'id_modelo_imagen',
 				},
 			},
-			nombre_archivo: DataTypes.STRING,
-			path_archivo: DataTypes.STRING,
-			myme_type: DataTypes.STRING,
-			file_type: DataTypes.STRING,
-			tamaño_modelo: DataTypes.INTEGER,
-			thumbnail: DataTypes.STRING,
+			id_pieza: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				references: {
+					model: 'piezas',
+					key: 'id_pieza',
+				},
+			},
 		},
 		{
 			sequelize,
@@ -40,11 +42,20 @@ module.exports = (sequelize, DataTypes) => {
 					],
 				},
 				{
-					name: 'id_modelo_metadata',
+					name: 'id_modelo_imagen',
 					using: 'BTREE',
 					fields: [
 						{
-							name: 'id_modelo_metadata',
+							name: 'id_modelo_imagen',
+						},
+					],
+				},
+				{
+					name: 'id_pieza',
+					using: 'BTREE',
+					fields: [
+						{
+							name: 'id_pieza',
 						},
 					],
 				},
@@ -52,17 +63,17 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 	modelos.associate = function (models) {
-		modelos.hasOne(models.modelo_metadata, {
-			foreignKey: 'id_modelo_metadata',
-			as: 'modelo_metadata',
+		modelos.hasOne(models.modelo_imagen, {
+			foreignKey: 'id_modelo_imagen',
+			as: 'modelo_imagen',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
-		modelos.belongsTo(models.piezas, {
-			foreignKey: 'id_modelo',
+		modelos.hasOne(models.piezas, {
+			foreignKey: 'id_pieza',
 			as: 'pieza',
 			onUpdate: 'CASCADE', // Update behavior
-			onDelete: 'CASCADE', // Delete behavior
+			onDelete: 'SET NULL', // Delete behavior
 		});
 	};
 	return modelos;

@@ -47,7 +47,7 @@ module.exports = {
 
 	async findOne(req, res) {
 		try {
-			const piezaDimension = await Pieza_Dimensiones.findByPk(req.params.id);
+			const piezaDimension = await Pieza_Dimensiones.findByPk(parseInt(req.params.id));
 			if (!piezaDimension) {
 				return res.status(404).json({ error: 'Pieza Dimension not found' });
 			}
@@ -60,12 +60,12 @@ module.exports = {
 	async update(req, res) {
 		try {
 			const [updated] = await Pieza_Dimensiones.update(req.body, {
-				where: { id: req.params.id },
+				where: { id_pieza_dimension: parseInt(req.params.id) },
 			});
 			if (!updated) {
 				return res.status(404).json({ error: 'Pieza Dimension not found' });
 			}
-			const updatedPiezaDimension = await Pieza_Dimensiones.findByPk(req.params.id);
+			const updatedPiezaDimension = await Pieza_Dimensiones.findByPk(parseInt(req.params.id));
 			return res.status(200).json(updatedPiezaDimension);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -75,7 +75,7 @@ module.exports = {
 	async delete(req, res) {
 		try {
 			const deleted = await Pieza_Dimensiones.destroy({
-				where: { id: req.params.id },
+				where: { id_pieza_dimension: parseInt(req.params.id) },
 			});
 			if (!deleted) {
 				return res.status(404).json({ error: 'Pieza Dimension not found' });

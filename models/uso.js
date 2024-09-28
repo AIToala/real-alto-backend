@@ -1,21 +1,21 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
-		'tipo_usos',
+	const usos = sequelize.define(
+		'usos',
 		{
-			id_tipo_uso: {
+			id_uso: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 			},
-			nombre_tipo_uso: DataTypes.STRING,
+			nombre_uso: DataTypes.STRING,
 			descripcion: DataTypes.STRING,
 		},
 		{
 			sequelize,
-			tableName: 'Tipo_Usos',
+			tableName: 'Usos',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -26,4 +26,13 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	usos.associate = function (models) {
+		usos.hasMany(models.pieza_usos, {
+			foreignKey: 'id_uso',
+			as: 'pieza_usos',
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE',
+		});
+	};
+	return usos;
 };

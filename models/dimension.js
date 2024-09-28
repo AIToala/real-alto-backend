@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const dimensiones = sequelize.define(
 		'dimensiones',
 		{
 			id_dimension: {
@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			valor_medida: DataTypes.DECIMAL,
 			unidad_medida: DataTypes.STRING,
+			descripcion: DataTypes.STRING,
 		},
 		{
 			sequelize,
@@ -26,4 +27,13 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	dimensiones.associate = function (models) {
+		dimensiones.hasMany(models.pieza_dimensiones, {
+			foreignKey: 'id_dimension',
+			as: 'pieza_dimensiones',
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE',
+		});
+	};
+	return dimensiones;
 };

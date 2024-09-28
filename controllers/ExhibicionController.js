@@ -22,7 +22,7 @@ module.exports = {
 
 	async findOne(req, res) {
 		try {
-			const exhibicion = await Exhibicion.findByPk(req.params.id);
+			const exhibicion = await Exhibicion.findByPk(parseInt(req.params.id));
 			if (!exhibicion) {
 				return res.status(404).json({ error: 'Exhibicion not found' });
 			}
@@ -35,12 +35,12 @@ module.exports = {
 	async update(req, res) {
 		try {
 			const [updated] = await Exhibicion.update(req.body, {
-				where: { id: req.params.id },
+				where: { id_exhibicion: parseInt(req.params.id) },
 			});
 			if (!updated) {
 				return res.status(404).json({ error: 'Exhibicion not found' });
 			}
-			const updatedExhibicion = await Exhibicion.findByPk(req.params.id);
+			const updatedExhibicion = await Exhibicion.findByPk(parseInt(req.params.id));
 			return res.status(200).json(updatedExhibicion);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -50,7 +50,7 @@ module.exports = {
 	async delete(req, res) {
 		try {
 			const deleted = await Exhibicion.destroy({
-				where: { id: req.params.id },
+				where: { id_exhibicion: parseInt(req.params.id) },
 			});
 			if (!deleted) {
 				return res.status(404).json({ error: 'Exhibicion not found' });

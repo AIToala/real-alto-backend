@@ -13,10 +13,10 @@ const ContactosController = require('../controllers/ContactosController');
 const DimensionesController = require('../controllers/DimensionesController');
 const ModelosController = require('../controllers/ModelosController');
 const ExhibicionController = require('../controllers/ExhibicionController');
-const ModeloMetadataController = require('../controllers/ModeloMetadataController');
+const ModeloImagenController = require('../controllers/ModeloImagenController');
 const ProcedenciaController = require('../controllers/ProcedenciaController');
-const TipoPiezaController = require('../controllers/TipoPiezaController');
-const TipoUsoController = require('../controllers/TipoUsoController');
+const TiposController = require('../controllers/TiposController');
+const UsosController = require('../controllers/UsosController');
 
 // Set prefix for the routes
 router.use('/api', router);
@@ -82,7 +82,6 @@ router.put('/dimensiones/:id', DimensionesController.update);
 router.delete('/dimensiones/:id', DimensionesController.delete);
 
 // Routes for Modelos
-router.post('/modelos', ModelosController.create);
 router.get('/modelos', ModelosController.findAll);
 router.get('/modelos/:id', ModelosController.findOne);
 router.put('/modelos/:id', ModelosController.update);
@@ -95,12 +94,12 @@ router.get('/exhibiciones/:id', ExhibicionController.findOne);
 router.put('/exhibiciones/:id', ExhibicionController.update);
 router.delete('/exhibiciones/:id', ExhibicionController.delete);
 
-// Routes for Modelo_Metadata
-router.post('/modelo-metadata', ModeloMetadataController.create);
-router.get('/modelo-metadata', ModeloMetadataController.findAll);
-router.get('/modelo-metadata/:id', ModeloMetadataController.findOne);
-router.put('/modelo-metadata/:id', ModeloMetadataController.update);
-router.delete('/modelo-metadata/:id', ModeloMetadataController.delete);
+// Routes for Modelo_Imagen
+router.post('/modelo-imagen', ModeloImagenController.create);
+router.get('/modelo-imagen', ModeloImagenController.findAll);
+router.get('/modelo-imagen/:id', ModeloImagenController.findOne);
+router.put('/modelo-imagen/:id', ModeloImagenController.update);
+router.delete('/modelo-imagen/:id', ModeloImagenController.delete);
 
 // Routes for Procedencia
 router.post('/procedencia', ProcedenciaController.create);
@@ -110,17 +109,17 @@ router.put('/procedencia/:id', ProcedenciaController.update);
 router.delete('/procedencia/:id', ProcedenciaController.delete);
 
 // Routes for Tipo_Pieza
-router.post('/tipo-pieza', TipoPiezaController.create);
-router.get('/tipo-pieza', TipoPiezaController.findAll);
-router.get('/tipo-pieza/:id', TipoPiezaController.findOne);
-router.put('/tipo-pieza/:id', TipoPiezaController.update);
-router.delete('/tipo-pieza/:id', TipoPiezaController.delete);
+router.post('/tipos', TiposController.create);
+router.get('/tipos', TiposController.findAll);
+router.get('/tipos/:id', TiposController.findOne);
+router.put('/tipos/:id', TiposController.update);
+router.delete('/tipos/:id', TiposController.delete);
 
 // Routes for Tipo_Uso
-router.post('/tipo-uso', TipoUsoController.create);
-router.get('/tipo-uso', TipoUsoController.findAll);
-router.get('/tipo-uso/:id', TipoUsoController.findOne);
-router.put('/tipo-uso/:id', TipoUsoController.update);
-router.delete('/tipo-uso/:id', TipoUsoController.delete);
+router.post('/usos', UsosController.create);
+router.get('/usos', UsosController.findAll);
+router.get('/usos/:id', UsosController.findOne);
+router.put('/usos/:id', UsosController.update);
+router.delete('/usos/:id', UsosController.delete);
 
 module.exports = router;

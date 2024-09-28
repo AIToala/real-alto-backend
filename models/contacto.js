@@ -1,7 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define(
+	const contactos = sequelize.define(
 		'contactos',
 		{
 			id_contacto: {
@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				autoIncrement: true,
 			},
+			descripcion: DataTypes.STRING,
 			telefono: DataTypes.STRING,
 			celular: DataTypes.STRING,
 			correo: DataTypes.STRING,
@@ -31,4 +32,13 @@ module.exports = (sequelize, DataTypes) => {
 			],
 		}
 	);
+	contactos.associate = function (models) {
+		contactos.hasMany(models.museo_contactos, {
+			foreignKey: 'id_contacto',
+			as: 'museo_contactos',
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE',
+		});
+	};
+	return contactos;
 };

@@ -2,27 +2,19 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Museos', {
-			id_museo: {
+		await queryInterface.createTable('Usos', {
+			id_uso: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			id_museo_contacto: {
-				type: Sequelize.INTEGER,
-				allowNull: true,
-			},
-			nombre_museo: {
+			nombre_uso: {
+				allowNull: false,
 				type: Sequelize.STRING,
+				unique: true,
 			},
-			descripcion_museo: {
-				type: Sequelize.TEXT,
-			},
-			localizacion_museo: {
-				type: Sequelize.STRING,
-			},
-			descripcion_localizacion_museo: {
+			descripcion: {
 				type: Sequelize.TEXT,
 			},
 			createdAt: {
@@ -36,6 +28,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('Museos');
+		await queryInterface.dropTable('Usos');
 	},
 };

@@ -9,27 +9,25 @@ module.exports = {
 				allowNull: false,
 				autoIncrement: true,
 			},
-			id_modelo_metadata: {
+			id_modelo_imagen: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
+				references: {
+					model: 'Modelo_Imagen',
+					key: 'id_modelo_imagen',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE',
 			},
-			nombre_archivo: {
-				type: Sequelize.STRING,
-			},
-			path_archivo: {
-				type: Sequelize.STRING,
-			},
-			myme_type: {
-				type: Sequelize.STRING,
-			},
-			file_type: {
-				type: Sequelize.STRING,
-			},
-			tamaño_modelo: {
+			id_pieza: {
 				type: Sequelize.INTEGER,
-			},
-			thumbnail: {
-				type: Sequelize.STRING,
+				allowNull: false,
+				references: {
+					model: 'Piezas',
+					key: 'id_pieza',
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE',
 			},
 			createdAt: {
 				allowNull: false,
@@ -39,6 +37,13 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.DATE,
 			},
+		});
+		await queryInterface.addIndex('Modelos', ['id_modelo_imagen']);
+		await queryInterface.addIndex('Modelos', ['id_pieza']);
+		await queryInterface.addConstraint('Modelos', {
+			fields: ['id_modelo_imagen', 'id_pieza'],
+			type: 'unique',
+			name: 'unique_modelo_imagen_pieza',
 		});
 	},
 	async down(queryInterface, Sequelize) {

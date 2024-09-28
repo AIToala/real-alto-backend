@@ -22,7 +22,7 @@ module.exports = {
 
 	async findOne(req, res) {
 		try {
-			const museoContacto = await Museo_Contactos.findByPk(req.params.id);
+			const museoContacto = await Museo_Contactos.findByPk(parseInt(req.params.id));
 			if (!museoContacto) {
 				return res.status(404).json({ error: 'Museo Contacto not found' });
 			}
@@ -35,12 +35,12 @@ module.exports = {
 	async update(req, res) {
 		try {
 			const [updated] = await Museo_Contactos.update(req.body, {
-				where: { id: req.params.id },
+				where: { id_museo_contacto: parseInt(req.params.id) },
 			});
 			if (!updated) {
 				return res.status(404).json({ error: 'Museo Contacto not found' });
 			}
-			const updatedMuseoContacto = await Museo_Contactos.findByPk(req.params.id);
+			const updatedMuseoContacto = await Museo_Contactos.findByPk(parseInt(req.params.id));
 			return res.status(200).json(updatedMuseoContacto);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -50,7 +50,7 @@ module.exports = {
 	async delete(req, res) {
 		try {
 			const deleted = await Museo_Contactos.destroy({
-				where: { id: req.params.id },
+				where: { id_museo_contacto: parseInt(req.params.id) },
 			});
 			if (!deleted) {
 				return res.status(404).json({ error: 'Museo Contacto not found' });

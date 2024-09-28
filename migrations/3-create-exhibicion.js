@@ -11,6 +11,8 @@ module.exports = {
 			},
 			nombre_exhibicion: {
 				type: Sequelize.STRING,
+				allowNull: false,
+				unique: true,
 			},
 			descripcion: {
 				type: Sequelize.TEXT,

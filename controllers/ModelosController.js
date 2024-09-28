@@ -1,53 +1,10 @@
 const { Op } = require('sequelize');
 const { sequelize } = require('../models');
-const { upload, handleUpload } = require('../config/multer'); // Import the multer configuration
 
 const Modelos = require('../models').modelos;
 const Modelo_Metadata = require('../models').modelo_metadata;
-const { Buffer } = require('buffer');
 
 module.exports = {
-	async create(req, res) {
-		const { modeloData, metadata } = req.body;
-		if (!modeloData || !metadata) {
-			return res.status(400).json({ error: 'Metadata is required' });
-		}
-		const transaction = await sequelize.transaction(); // Start a new transaction
-		try {
-			upload.single('image')(req, res, async (err) => {
-				if (err) {
-					return res.status(400).json({ error: err.message });
-				}
-				if (!req.file) {
-					return res.status(400).json({ error: 'Image is required' });
-				}
-				const b64 = Buffer.from(req.file.buffer).toString('base64');
-				let dataUri = 'data:' + req.file.mimetype + ';base64,' + b64;
-				const cldres = await handleUpload(dataUri);
-				console.log(cldres);
-				const imageUrl = cldres.path;
-				const publicId = cldres.filename;
-				const createdMetadata = await Modelo_Metadata.create(metadata, { transaction });
-
-				const createdModelo = await Modelos.create(
-					{
-						...modeloData,
-						id_modelo_metadata: createdMetadata.id_modelo_metadata,
-						path_archivo: imageUrl,
-						nombre_archivo: publicId,
-						thumbnail: imageUrl,
-					},
-					{ transaction }
-				);
-				await transaction.commit(); // Commit the transaction
-				return res.status(201).json({ message: 'Modelo created', modelo: createdModelo });
-			});
-		} catch (error) {
-			await transaction.rollback(); // Rollback the transaction
-			return res.status(400).json({ error: error.message });
-		}
-	},
-
 	async findAll(req, res) {
 		try {
 			const modelos = await Modelos.findAll({
@@ -66,7 +23,7 @@ module.exports = {
 
 	async findOne(req, res) {
 		try {
-			const modelo = await Modelos.findByPk(req.params.id);
+			const modelo = await Modelos.findByPk(parseInt(req.params.id));
 			if (!modelo) {
 				return res.status(404).json({ error: 'Modelo not found' });
 			}
@@ -79,12 +36,12 @@ module.exports = {
 	async update(req, res) {
 		try {
 			const [updated] = await Modelos.update(req.body, {
-				where: { id: req.params.id },
+				where: { id_modelo: parseInt(req.params.id) },
 			});
 			if (!updated) {
 				return res.status(404).json({ error: 'Modelo not found' });
 			}
-			const updatedModelo = await Modelos.findByPk(req.params.id);
+			const updatedModelo = await Modelos.findByPk(parseInt(req.params.id));
 			return res.status(200).json(updatedModelo);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
@@ -94,7 +51,7 @@ module.exports = {
 	async delete(req, res) {
 		try {
 			const deleted = await Modelos.destroy({
-				where: { id: req.params.id },
+				where: { id_modelo: parseInt(req.params.id) },
 			});
 			if (!deleted) {
 				return res.status(404).json({ error: 'Modelo not found' });
