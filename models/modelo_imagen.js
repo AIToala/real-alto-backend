@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			tableName: 'Modelo_Imagen',
+			tableName: 'modelo_imagen',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 	modelo_imagen.associate = function (models) {
-		modelo_imagen.belongsTo(models.modelos, {
+		modelo_imagen.hasMany(models.modelos, {
 			foreignKey: 'id_modelo_imagen',
 			as: 'modelos',
 			onUpdate: 'CASCADE',

@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			tableName: 'Modelos',
+			tableName: 'modelos',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -63,17 +63,17 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 	modelos.associate = function (models) {
-		modelos.hasOne(models.modelo_imagen, {
+		modelos.belongsTo(models.modelo_imagen, {
 			foreignKey: 'id_modelo_imagen',
 			as: 'modelo_imagen',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
-		modelos.hasOne(models.piezas, {
+		modelos.belongsTo(models.piezas, {
 			foreignKey: 'id_pieza',
 			as: 'pieza',
 			onUpdate: 'CASCADE', // Update behavior
-			onDelete: 'SET NULL', // Delete behavior
+			onDelete: 'CASCADE', // Delete behavior
 		});
 	};
 	return modelos;

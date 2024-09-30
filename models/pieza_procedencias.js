@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Procedencias',
+					model: 'procedencias',
 					key: 'id_procedencia',
 				},
 			},
@@ -22,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Piezas',
+					model: 'piezas',
 					key: 'id_pieza',
 				},
 			},
 		},
 		{
 			sequelize,
-			tableName: 'Pieza_Procedencias',
+			tableName: 'pieza_procedencias',
 			indexes: [
 				{
 					name: 'PRIMARY',

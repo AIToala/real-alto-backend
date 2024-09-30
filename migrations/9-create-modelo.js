@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Modelos', {
+		await queryInterface.createTable('modelos', {
 			id_modelo: {
 				type: Sequelize.INTEGER,
 				primaryKey: true,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Modelo_Imagen',
+					model: 'modelo_imagen',
 					key: 'id_modelo_imagen',
 				},
 				onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Piezas',
+					model: 'piezas',
 					key: 'id_pieza',
 				},
 				onUpdate: 'CASCADE',
@@ -38,15 +38,15 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 		});
-		await queryInterface.addIndex('Modelos', ['id_modelo_imagen']);
-		await queryInterface.addIndex('Modelos', ['id_pieza']);
-		await queryInterface.addConstraint('Modelos', {
-			fields: ['id_modelo_imagen', 'id_pieza'],
+		await queryInterface.addIndex('modelos', ['id_pieza']);
+		await queryInterface.addIndex('modelos', ['id_modelo_imagen']);
+		await queryInterface.addConstraint('modelos', {
+			fields: ['id_pieza', 'id_modelo_imagen'],
 			type: 'unique',
-			name: 'unique_modelo_imagen_pieza',
+			name: 'UQ_modelos_id_pieza_id_modelo_imagen',
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('Modelos');
+		await queryInterface.dropTable('modelos');
 	},
 };

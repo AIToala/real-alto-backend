@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			tableName: 'Piezas',
+			tableName: 'piezas',
 			indexes: [
 				{
 					name: 'PRIMARY',
@@ -35,31 +35,31 @@ module.exports = (sequelize, DataTypes) => {
 	piezas.associate = function (models) {
 		piezas.hasMany(models.pieza_procedencias, {
 			foreignKey: 'id_pieza',
-			as: 'pieza_procedencia',
+			as: 'pieza_procedencias',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasMany(models.pieza_usos, {
 			foreignKey: 'id_pieza',
-			as: 'pieza_uso',
+			as: 'pieza_usos',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasMany(models.pieza_tipos, {
 			foreignKey: 'id_pieza',
-			as: 'pieza_tipo',
+			as: 'pieza_tipos',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasMany(models.modelos, {
 			foreignKey: 'id_pieza',
-			as: 'modelo',
+			as: 'modelos',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});
 		piezas.hasMany(models.pieza_dimensiones, {
 			foreignKey: 'id_pieza',
-			as: 'pieza_dimension',
+			as: 'pieza_dimensiones',
 			onUpdate: 'CASCADE', // Update behavior
 			onDelete: 'CASCADE', // Delete behavior
 		});

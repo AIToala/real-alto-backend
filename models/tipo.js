@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			tableName: 'Tipos',
+			tableName: 'tipos',
 			indexes: [
 				{
 					name: 'PRIMARY',

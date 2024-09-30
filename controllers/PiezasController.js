@@ -183,88 +183,90 @@ module.exports = {
 
 			// Extract include options
 			const include = [
+				...(req.query.with_modelos
+					? [
+							{
+								association: 'modelos',
+								include: [
+									{
+										association: 'modelo_imagen',
+										required: true,
+									},
+								],
+								required: true,
+							},
+						]
+					: []),
 				...(req.query.with_pieza_dimension
 					? [
 							{
-								model: pieza_dimensiones,
-								as: 'pieza_dimension',
+								association: 'pieza_dimensiones',
 								include: [
 									{
-										model: dimensiones,
-										as: 'dimensiones',
+										association: 'dimensiones',
+										required: true,
 									},
 								],
+								required: true,
 							},
 						]
 					: []),
 				...(req.query.with_pieza_usos
 					? [
 							{
-								model: pieza_usos,
-								as: 'pieza_uso',
-								where: {
-									...(filters.id_uso && { id_uso: filters.id_uso }),
-								},
+								association: 'pieza_usos',
+								...(filters.id_uso && { where: { id_uso: filters.id_uso }, required: true }),
 								include: [
 									{
-										model: usos,
-										as: 'uso',
-										...(filters.nombre_uso && { where: { nombre_uso: filters.nombre_uso } }),
+										association: 'uso',
+										...(filters.nombre_uso && {
+											where: { nombre_uso: filters.nombre_uso },
+										}),
+										required: true,
 									},
 								],
+								required: true,
 							},
 						]
 					: []),
 				...(req.query.with_pieza_tipos
 					? [
 							{
-								model: pieza_tipos,
-								as: 'pieza_tipo',
-								...(filters.id_tipo && { where: { id_tipo: filters.id_tipo } }),
+								association: 'pieza_tipos',
+								...(filters.id_tipo && { where: { id_tipo: filters.id_tipo }, required: true }),
 								include: [
 									{
-										model: tipos,
-										as: 'tipo',
+										association: 'tipo',
 										...(filters.nombre_tipo && {
 											where: { nombre_tipo: filters.nombre_tipo },
 										}),
+										required: true,
 									},
 								],
-							},
-						]
-					: []),
-				...(req.query.with_modelos
-					? [
-							{
-								model: modelos,
-								as: 'modelo',
-								include: [
-									{
-										model: modelo_imagen,
-										as: 'modelo_imagen',
-									},
-								],
+								required: true,
 							},
 						]
 					: []),
 				...(req.query.with_pieza_procedencias
 					? [
 							{
-								model: pieza_procedencias,
-								as: 'pieza_procedencia',
-								where: {
-									...(filters.id_procedencia && {
+								association: 'pieza_procedencias',
+								...(filters.id_procedencia && {
+									where: {
 										id_procedencia: filters.id_procedencia,
-									}),
-								},
+									},
+								}),
 								include: [
 									{
-										model: procedencias,
-										as: 'procedencia',
+										association: 'procedencia',
 										...(filters.origen && { where: { origen: filters.origen } }),
-										...(filters.nivel_cronologico && { where: { nivel_cronologico: filters.nivel_cronologico } }),
+										...(filters.nivel_cronologico && {
+											where: { nivel_cronologico: filters.nivel_cronologico },
+										}),
+										required: true,
 									},
 								],
+								required: true,
 							},
 						]
 					: []),
@@ -285,8 +287,8 @@ module.exports = {
 			const paginated = parseInt(req.query.paginated) === 1 ? true : false;
 			const page = parseInt(req.query.page) || 1;
 			const pageSize = parseInt(req.query.pageSize) || 10;
-			const limit = pageSize;
 			const offset = (page - 1) * pageSize;
+			const limit = pageSize;
 
 			const where =
 				whereConditions.length > 0
@@ -297,14 +299,20 @@ module.exports = {
 				const { count, rows } = await Pieza.findAndCountAll({
 					include,
 					where,
-					limit,
-					offset,
 					distinct: true,
+					subQuery: false,
+					logging: console.log, // Add this line
 				});
 
-				return res
-					.status(200)
-					.json({ total: count, totalPages: Math.ceil(count / pageSize), currentPage: page, pageSize, data: rows });
+				const paginatedRows = rows.slice(offset, offset + limit);
+
+				return res.status(200).json({
+					total: count,
+					totalPages: Math.ceil(count / pageSize),
+					currentPage: page,
+					pageSize,
+					data: paginatedRows,
+				});
 			} else {
 				const rows = await Pieza.findAll({
 					include,
@@ -324,48 +332,39 @@ module.exports = {
 			const pieza = await Pieza.findAll({
 				include: [
 					{
-						model: pieza_dimensiones,
-						as: 'pieza_dimension',
+						association: 'pieza_dimension',
 						include: [
 							{
-								model: dimensiones,
-								as: 'dimensiones',
+								association: 'dimensiones',
 							},
 						],
 					},
 					{
-						model: 'pieza_usos',
-						as: 'pieza_uso',
+						association: 'pieza_uso',
 						include: [
 							{
-								model: 'usos',
-								as: 'uso',
+								association: 'uso',
 							},
 						],
 					},
 					{
-						model: 'pieza_tipos',
-						as: 'pieza_tipo',
+						association: 'pieza_tipo',
 						include: [
 							{
-								model: 'tipos',
-								as: 'tipo',
+								association: 'tipo',
 							},
 						],
 					},
 					{
-						model: modelos,
-						as: 'modelo',
+						association: 'modelo',
 						include: [
 							{
-								model: modelo_imagen,
-								as: 'modelo_imagen',
+								association: 'modelo_imagen',
 							},
 						],
 					},
 					{
-						model: 'pieza_procedencias',
-						as: 'pieza_procedencia',
+						association: 'pieza_procedencia',
 						include: [{ model: 'procedencias', as: 'procedencia' }],
 					},
 				],

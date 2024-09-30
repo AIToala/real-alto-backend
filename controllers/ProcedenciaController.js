@@ -18,6 +18,8 @@ module.exports = {
 			if (req.query.id_procedencia && req.query.id_procedencia !== '')
 				filters.id_procedencia = req.query.id_procedencia;
 			if (req.query.busqueda && req.query.busqueda !== '') filters.busqueda = req.query.busqueda;
+			if (req.query.only_origen && req.query.only_origen !== '') filters.only_origen = req.query.only_origen;
+			if (req.query.origen && req.query.origen !== '') filters.origen = req.query.origen;
 
 			// Dynamically build the `where` clause
 			const whereConditions = [];
@@ -30,6 +32,10 @@ module.exports = {
 					{ origen: { [Op.like]: `%${filters.busqueda}%` } }
 				);
 			}
+			if (filters.origen) {
+				whereConditions.push({ origen: { [Op.eq]: filters.origen } });
+			}
+
 			const paginated = parseInt(req.query.paginated) === 1 ? true : false;
 			const page = parseInt(req.query.page) || 1;
 			const pageSize = parseInt(req.query.pageSize) || 10;
@@ -64,13 +70,30 @@ module.exports = {
 			} else {
 				if (whereConditions.length > 0) {
 					const rows = await Procedencia.findAll({
+						...(filters.only_origen && {
+							attributes: [[sequelize.fn('DISTINCT', sequelize.col('origen')), ['origen']]],
+						}),
 						where: {
 							[Op.and]: [{ [Op.or]: whereConditions }],
 						},
+						...(!filters.only_origen && {
+							order: [
+								['origen', 'ASC'],
+								['nivel_cronologico', 'DESC'],
+							],
+						}),
 					});
 					return res.status(200).json(rows);
 				} else {
-					const rows = await Procedencia.findAll();
+					const rows = await Procedencia.findAll({
+						...(filters.only_origen && { attributes: [[sequelize.fn('DISTINCT', sequelize.col('origen')), 'origen']] }),
+						...(!filters.only_origen && {
+							order: [
+								['origen', 'ASC'],
+								['nivel_cronologico', 'DESC'],
+							],
+						}),
+					});
 					return res.status(200).json(rows);
 				}
 			}

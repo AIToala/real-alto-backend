@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Pieza_Procedencias', {
+		await queryInterface.createTable('pieza_procedencias', {
 			id_pieza_procedencia: {
 				allowNull: false,
 				autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Procedencias',
+					model: 'procedencias',
 					key: 'id_procedencia',
 				},
 				onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Piezas',
+					model: 'piezas',
 					key: 'id_pieza',
 				},
 				onUpdate: 'CASCADE',
@@ -38,15 +38,15 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 		});
-		await queryInterface.addIndex('Pieza_Procedencias', ['id_pieza']);
-		await queryInterface.addIndex('Pieza_Procedencias', ['id_procedencia']);
-		await queryInterface.addConstraint('Pieza_Procedencias', {
+		await queryInterface.addIndex('pieza_procedencias', ['id_pieza']);
+		await queryInterface.addIndex('pieza_procedencias', ['id_procedencia']);
+		await queryInterface.addConstraint('pieza_procedencias', {
 			fields: ['id_pieza', 'id_procedencia'],
 			type: 'unique',
-			name: 'UQ_Pieza_Procedencias_id_pieza_id_procedencia',
+			name: 'UQ_pieza_procedencias_id_pieza_id_procedencia',
 		});
 	},
 	async down(queryInterface) {
-		await queryInterface.dropTable('Pieza_Procedencias');
+		await queryInterface.dropTable('pieza_procedencias');
 	},
 };

@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Pieza_Dimensiones', {
+		await queryInterface.createTable('pieza_dimensiones', {
 			id_pieza_dimension: {
 				allowNull: false,
 				autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Piezas',
+					model: 'piezas',
 					key: 'id_pieza',
 				},
 				onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Dimensiones',
+					model: 'dimensiones',
 					key: 'id_dimension',
 				},
 				onUpdate: 'CASCADE',
@@ -38,15 +38,15 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 		});
-		await queryInterface.addIndex('Pieza_Dimensiones', ['id_pieza']);
-		await queryInterface.addIndex('Pieza_Dimensiones', ['id_dimension']);
-		await queryInterface.addConstraint('Pieza_Dimensiones', {
+		await queryInterface.addIndex('pieza_dimensiones', ['id_pieza']);
+		await queryInterface.addIndex('pieza_dimensiones', ['id_dimension']);
+		await queryInterface.addConstraint('pieza_dimensiones', {
 			fields: ['id_pieza', 'id_dimension'],
 			type: 'unique',
-			name: 'UQ_Pieza_Dimensiones_id_pieza_id_dimension',
+			name: 'UQ_pieza_dimensiones_id_pieza_id_dimension',
 		});
 	},
 	async down(queryInterface) {
-		await queryInterface.dropTable('Pieza_Dimensiones');
+		await queryInterface.dropTable('pieza_dimensiones');
 	},
 };

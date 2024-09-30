@@ -12,6 +12,7 @@
 	},
 	"scripts": {
 		"setup": "pnpm install && node config/setup-db.js",
+		"sync": "node config/sync.js",
 		"test": "jest",
 		"testdev": "jest --watch",
 		"start": "node server.js",

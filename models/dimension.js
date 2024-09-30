@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			tableName: 'Dimensiones',
+			tableName: 'dimensiones',
 			indexes: [
 				{
 					name: 'PRIMARY',

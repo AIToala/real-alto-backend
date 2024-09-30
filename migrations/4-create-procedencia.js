@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Procedencias', {
+		await queryInterface.createTable('procedencias', {
 			id_procedencia: {
 				allowNull: false,
 				autoIncrement: true,
@@ -35,15 +35,15 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 		});
-		await queryInterface.addIndex('Procedencias', ['origen']);
-		await queryInterface.addIndex('Procedencias', ['nivel_cronologico']);
-		await queryInterface.addConstraint('Procedencias', {
+		await queryInterface.addIndex('procedencias', ['origen']);
+		await queryInterface.addIndex('procedencias', ['nivel_cronologico']);
+		await queryInterface.addConstraint('procedencias', {
 			fields: ['origen', 'nivel_cronologico'],
 			type: 'unique',
-			name: 'UQ_Procedencias_origen_nivel_cronologico',
+			name: 'UQ_procedencias_origen_nivel_cronologico',
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('Procedencias');
+		await queryInterface.dropTable('procedencias');
 	},
 };

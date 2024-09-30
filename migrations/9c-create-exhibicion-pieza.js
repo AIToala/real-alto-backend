@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Exhibicion_Piezas', {
+		await queryInterface.createTable('exhibicion_piezas', {
 			id_exhibicion_pieza: {
 				allowNull: false,
 				autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Exhibiciones',
+					model: 'exhibiciones',
 					key: 'id_exhibicion',
 				},
 				onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Piezas',
+					model: 'piezas',
 					key: 'id_pieza',
 				},
 				onUpdate: 'CASCADE',
@@ -38,15 +38,15 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 		});
-		await queryInterface.addIndex('Exhibicion_Piezas', ['id_exhibicion']);
-		await queryInterface.addIndex('Exhibicion_Piezas', ['id_pieza']);
-		await queryInterface.addConstraint('Exhibicion_Piezas', {
+		await queryInterface.addIndex('exhibicion_piezas', ['id_exhibicion']);
+		await queryInterface.addIndex('exhibicion_piezas', ['id_pieza']);
+		await queryInterface.addConstraint('exhibicion_piezas', {
 			fields: ['id_exhibicion', 'id_pieza'],
 			type: 'unique',
-			name: 'UQ_Exhibicion_Piezas_id_exhibicion_id_pieza',
+			name: 'UQ_exhibicion_piezas_id_exhibicion_id_pieza',
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('Exhibicion_Piezas');
+		await queryInterface.dropTable('exhibicion_piezas');
 	},
 };

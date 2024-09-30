@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('Museo_Contactos', {
+		await queryInterface.createTable('museo_contactos', {
 			id_museo_contacto: {
 				allowNull: false,
 				autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Museos',
+					model: 'museos',
 					key: 'id_museo',
 				},
 				onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
-					model: 'Contactos',
+					model: 'contactos',
 					key: 'id_contacto',
 				},
 				onUpdate: 'CASCADE',
@@ -38,15 +38,15 @@ module.exports = {
 				type: Sequelize.DATE,
 			},
 		});
-		await queryInterface.addIndex('Museo_Contactos', ['id_museo']);
-		await queryInterface.addIndex('Museo_Contactos', ['id_contacto']);
-		await queryInterface.addConstraint('Museo_Contactos', {
+		await queryInterface.addIndex('museo_contactos', ['id_museo']);
+		await queryInterface.addIndex('museo_contactos', ['id_contacto']);
+		await queryInterface.addConstraint('museo_contactos', {
 			fields: ['id_museo', 'id_contacto'],
 			type: 'unique',
-			name: 'UQ_Museo_Contactos_id_museo_id_contacto',
+			name: 'UQ_museo_contactos_id_museo_id_contacto',
 		});
 	},
 	async down(queryInterface) {
-		await queryInterface.dropTable('Museo_Contactos');
+		await queryInterface.dropTable('museo_contactos');
 	},
 };
