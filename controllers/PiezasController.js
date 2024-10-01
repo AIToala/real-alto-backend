@@ -36,9 +36,11 @@ module.exports = {
 
 		const t = await sequelize.transaction(); // Start a new transaction
 		try {
+			const nombre_pieza = piezaData.nombre_pieza.trim().replace(/\s+/g, '-');
+
 			const pieza = await Pieza.create(
 				{
-					nombre_pieza: piezaData.nombre_pieza,
+					nombre_pieza: nombre_pieza,
 					descripcion: piezaData.descripcion,
 					descripcion_corta: piezaData.descripcion_corta,
 					activo: piezaData.activo || 1,

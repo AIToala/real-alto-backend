@@ -4,7 +4,15 @@ const Procedencia = require('../models').procedencias;
 module.exports = {
 	async create(req, res) {
 		try {
-			const procedencia = await Procedencia.create(req.body);
+			const { origen, nivel_cronologico, periodo_inicio, periodo_fin, descripcion } = req.body;
+			const nombre = origen.trim().replace(/\s+/g, '-');
+			const procedencia = await Procedencia.create({
+				origen: nombre,
+				nivel_cronologico,
+				periodo_inicio,
+				periodo_fin,
+				descripcion,
+			});
 			return res.status(201).json(procedencia);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });

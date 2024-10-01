@@ -4,7 +4,12 @@ const Usos = require('../models').usos;
 module.exports = {
 	async create(req, res) {
 		try {
-			const tipoUso = await Usos.create(req.body);
+			const { nombre_uso, descripcion } = req.body;
+			const nombre = nombre_uso.trim().replace(/\s+/g, '-');
+			const tipoUso = await Usos.create({
+				nombre_uso: nombre,
+				descripcion,
+			});
 			return res.status(201).json(tipoUso);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });

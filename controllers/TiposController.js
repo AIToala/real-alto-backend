@@ -4,7 +4,12 @@ const Tipos = require('../models').tipos;
 module.exports = {
 	async create(req, res) {
 		try {
-			const tipoPieza = await Tipos.create(req.body);
+			const { nombre_tipo, descripcion } = req.body;
+			const nombre = nombre_tipo.trim().replace(/\s+/g, '-');
+			const tipoPieza = await Tipos.create({
+				nombre_tipo: nombre,
+				descripcion,
+			});
 			return res.status(201).json(tipoPieza);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });

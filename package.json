@@ -13,6 +13,7 @@
 	"scripts": {
 		"setup": "pnpm install && node config/setup-db.js",
 		"migrate": "node config/setup-db.js && npx sequelize-cli db:migrate",
+		"seed": "npx sequelize-cli db:seed:all",
 		"sync": "node config/sync.js",
 		"test": "jest",
 		"testdev": "jest --watch",
